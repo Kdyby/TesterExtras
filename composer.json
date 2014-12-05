@@ -1,0 +1,29 @@
+{
+	"name": "kdyby/tester-extras",
+	"type": "library",
+	"description": "Useful classes for testing Nette applications and libraries with Nette Tester",
+	"keywords": ["nette", "tester"],
+	"homepage": "http://kdyby.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "Filip Procházka",
+			"homepage": "http://filip-prochazka.com",
+			"email": "filip@prochazka.su"
+		}
+	],
+	"support": {
+		"email": "filip@prochazka.su",
+		"issues": "https://github.com/Kdyby/TesterExtras/issues"
+	},
+	"require": {
+		"ext-curl": "*",
+		"nette/tester": "*",
+		"symfony/process": "~2.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"Kdyby\\TesterExtras": "src/"
+		}
+	}
+}
