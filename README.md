@@ -1,31 +1,29 @@
-Kdyby/Selenium
+Kdyby/TesterExtras
 ======
 
-[![Build Status](https://travis-ci.org/Kdyby/Selenium.svg?branch=master)](https://travis-ci.org/Kdyby/Selenium)
-[![Downloads this Month](https://img.shields.io/packagist/dm/Kdyby/Selenium.svg)](https://packagist.org/packages/Kdyby/Selenium)
-[![Latest stable](https://img.shields.io/packagist/v/Kdyby/Selenium.svg)](https://packagist.org/packages/Kdyby/Selenium)
+[![Build Status](https://travis-ci.org/Kdyby/TesterExtras.svg?branch=master)](https://travis-ci.org/Kdyby/TesterExtras)
+[![Downloads this Month](https://img.shields.io/packagist/dm/Kdyby/TesterExtras.svg)](https://packagist.org/packages/Kdyby/TesterExtras)
+[![Latest stable](https://img.shields.io/packagist/v/Kdyby/TesterExtras.svg)](https://packagist.org/packages/Kdyby/TesterExtras)
 
 
 Requirements
 ------------
 
-Kdyby/Selenium requires PHP 5.3.2 or higher.
+Kdyby/TesterExtras requires PHP 5.3.2 or higher.
 
 - [Nette Tester](https://github.com/nette/tester)
-- Latest stable Java
-- [Selenium server standalone](https://code.google.com/p/selenium/downloads/list?can=2&q=)
 
 
 Installation
 ------------
 
-The best way to install Kdyby/Selenium is using  [Composer](http://getcomposer.org/):
+The best way to install Kdyby/TesterExtras is using  [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require kdyby/selenium:@dev
+$ composer require kdyby/tester-extras:@dev
 ```
 
 
 -----
 
-Homepage [http://www.kdyby.org](http://www.kdyby.org) and repository [http://github.com/kdyby/selenium](http://github.com/kdyby/selenium).
+Homepage [http://www.kdyby.org](http://www.kdyby.org) and repository [http://github.com/Kdyby/TesterExtras](http://github.com/Kdyby/TesterExtras).
