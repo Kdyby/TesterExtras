@@ -110,7 +110,7 @@ call_user_func(function () {
 			out(4, "Unsupported requirement: " . $version);
 	}
 
-	$content = json_encode($composer, JSON_PRETTY_PRINT);
+	$content = defined('JSON_PRETTY_PRINT') ? json_encode($composer, JSON_PRETTY_PRINT) : json_encode($composer);
 	file_put_contents($composerJsonFile, $content);
 
 	out(0);
