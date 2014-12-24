@@ -49,6 +49,10 @@ call_user_func(function () {
 					continue;
 				}
 
+				if (strtolower($dep) === 'nette/tester') {
+					continue;
+				}
+
 				$composer[$req][$dep] = $callback($dep, $version);
 			}
 		}
