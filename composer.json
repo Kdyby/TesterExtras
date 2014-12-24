@@ -27,6 +27,6 @@
 		}
 	},
 	"bin": [
-		"bin/composer.nette.php"
+		"bin/composer-nette"
 	]
 }
