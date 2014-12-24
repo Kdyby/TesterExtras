@@ -83,7 +83,7 @@ call_user_func(function () {
 	switch ($version) {
 		case 'nette-2.2':
 			$composer = $modifyRequirement(function ($dep, $version) {
-				return '~2.2,>=2.2.0';
+				return '>=2.2.0';
 			});
 			break;
 
@@ -114,6 +114,11 @@ call_user_func(function () {
 
 	$content = defined('JSON_PRETTY_PRINT') ? json_encode($composer, JSON_PRETTY_PRINT) : json_encode($composer);
 	file_put_contents($composerJsonFile, $content);
+
+	echo "\n", print_r(array(
+		'require' => $composer['require'],
+		'require-dev' => !empty($composer['require-dev']) ? $composer['require-dev'] : array(),
+	), TRUE);
 
 	out(0);
 });
