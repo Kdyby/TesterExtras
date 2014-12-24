@@ -93,7 +93,13 @@ call_user_func(function () {
 		case 'nette-2.2-dev':
 			$allPackages = $composer['require'] + $composer['require-dev'];
 			if ($diff = array_diff_key(array_fill_keys($nettePackages, "~2.2@dev"), $allPackages)) {
-				out(5, "There are missing packages in the require-dev section of composer.json:\n\n" . print_r($diff, TRUE));
+
+				$formatted = '';
+				foreach ($diff as $dep => $version) {
+					$formatted .= sprintf("\t\"%s\": \"%s\",\n", $dep, $version);
+				}
+
+				out(5, "There are missing packages in the require-dev section of composer.json:\n\n" . $formatted);
 			}
 
 			out(0, "Nothing to change");
