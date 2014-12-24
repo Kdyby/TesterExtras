@@ -20,16 +20,9 @@ function out($c, $msg = NULL)
 call_user_func(function () {
 	$projectRoot = getcwd();
 
-	if (file_exists($autoload = $projectRoot . '/vendor/autoload.php')) {
-		require_once $autoload;
-
-	} else {
-		out(1, "The composer autoloader was not found");
-	}
-
 	$version = getenv('NETTE');
 	if (!$version) {
-		out(0);
+		out(0, "Version constant NETTE is not defined.");
 	}
 
 	echo "Nette version " . $version . PHP_EOL;
