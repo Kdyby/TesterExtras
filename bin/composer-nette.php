@@ -65,14 +65,12 @@ call_user_func(function () {
 
 	switch ($version) {
 		case 'nette-2.2':
-			echo "Modifying Nette dependencies to 2.2 stable\n";
 			$composer = $modifyRequirement(function ($dep, $version) {
 				return '~2.2,>=2.2.0';
 			});
 			break;
 
 		case 'nette-2.2-dev':
-			echo "Modifying Nette dependencies to 2.2 dev\n";
 			$composer['require'] = array(
 					"nette/application" => "~2.2@dev",
 					"nette/bootstrap" => "~2.2@dev",
@@ -100,14 +98,12 @@ call_user_func(function () {
 			break;
 
 		case 'nette-2.1':
-			echo "Modifying Nette dependencies to 2.1 stable\n";
 			$composer = $modifyRequirement(function ($dep, $version) {
 				return '2.1.*';
 			});
 			break;
 
 		case 'nette-2.0':
-			echo "Modifying Nette dependencies to 2.0 stable\n";
 			$composer = $modifyRequirement(function ($dep, $version) {
 				return '2.0.*';
 			});
