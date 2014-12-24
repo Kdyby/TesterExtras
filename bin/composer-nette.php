@@ -38,18 +38,38 @@ call_user_func(function () {
 		out(3, "The composer.json has no require section");
 	}
 
-	$modifyRequirement = function ($callback) use ($composer) {
+	static $nettePackages = array(
+		"nette/application",
+		"nette/bootstrap",
+		"nette/caching",
+		"nette/component-model",
+		"nette/database",
+		"nette/deprecated",
+		"nette/di",
+		"nette/finder",
+		"nette/forms",
+		"nette/http",
+		"nette/mail",
+		"nette/neon",
+		"nette/php-generator",
+		"nette/reflection",
+		"nette/robot-loader",
+		"nette/safe-stream",
+		"nette/security",
+		"nette/tokenizer",
+		"nette/utils",
+		"latte/latte",
+		"tracy/tracy",
+	);
+
+	$modifyRequirement = function ($callback) use ($composer, $nettePackages) {
 		foreach (array('require', 'require-dev') as $req) {
 			if (!isset($composer[$req])) {
 				continue;
 			}
 
 			foreach ($composer[$req] as $dep => $version) {
-				if (stripos($dep, 'nette/') !== 0 && stripos($dep, 'tracy/') !== 0 && stripos($dep, 'latte/') !== 0) {
-					continue;
-				}
-
-				if (strtolower($dep) === 'nette/tester') {
+				if (!in_array(strtolower($dep), $nettePackages, TRUE)) {
 					continue;
 				}
 
@@ -68,29 +88,7 @@ call_user_func(function () {
 			break;
 
 		case 'nette-2.2-dev':
-			$composer['require'] = array(
-					"nette/application" => "~2.2@dev",
-					"nette/bootstrap" => "~2.2@dev",
-					"nette/caching" => "~2.2@dev",
-					"nette/component-model" => "~2.2@dev",
-					"nette/database" => "~2.2@dev",
-					"nette/deprecated" => "~2.2@dev",
-					"nette/di" => "~2.2@dev",
-					"nette/finder" => "~2.2@dev",
-					"nette/forms" => "~2.2@dev",
-					"nette/http" => "~2.2@dev",
-					"nette/mail" => "~2.2@dev",
-					"nette/neon" => "~2.2@dev",
-					"nette/php-generator" => "~2.2@dev",
-					"nette/reflection" => "~2.2@dev",
-					"nette/robot-loader" => "~2.2@dev",
-					"nette/safe-stream" => "~2.2@dev",
-					"nette/security" => "~2.2@dev",
-					"nette/tokenizer" => "~2.2@dev",
-					"nette/utils" => "~2.2@dev",
-					"latte/latte" => "~2.2@dev",
-					"tracy/tracy" => "~2.2@dev",
-				) + $composer['require'];
+			$composer['require'] = array_fill_keys($nettePackages, "~2.2@dev") + $composer['require'];
 
 			break;
 
