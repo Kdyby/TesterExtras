@@ -139,11 +139,11 @@ call_user_func(function () {
 	}
 
 	if (!empty($composer['require']['nette/deprecated'])) {
-		$composer['require']['nette/deprecated'] = '*';
+		$composer['require']['nette/deprecated'] = '@dev';
 	}
 
 	if (!empty($composer['require-dev']['nette/deprecated'])) {
-		$composer['require-dev']['nette/deprecated'] = '*';
+		$composer['require-dev']['nette/deprecated'] = '@dev';
 	}
 
 	$content = defined('JSON_PRETTY_PRINT') ? json_encode($composer, JSON_PRETTY_PRINT) : json_encode($composer);
