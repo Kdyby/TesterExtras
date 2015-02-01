@@ -81,6 +81,30 @@ call_user_func(function () {
 	};
 
 	switch ($version) {
+		case 'nette-2.3':
+			$composer = $modifyRequirement(function ($dep, $version) {
+				return '>=2.3.0@beta';
+			});
+
+			$composer['require-dev'] = array('nette/nette' => '>=2.3.0@beta') + $composer['require-dev'];
+
+			break;
+
+		case 'nette-2.3-dev':
+			$allPackages = $composer['require'] + $composer['require-dev'];
+			if ($diff = array_diff_key(array_fill_keys($nettePackages, "~2.3@dev"), $allPackages)) {
+
+				$formatted = '';
+				foreach ($diff as $dep => $version) {
+					$formatted .= sprintf("\t\"%s\": \"%s\",\n", $dep, $version);
+				}
+
+				out(5, "There are missing packages in the require-dev section of composer.json:\n\n" . $formatted);
+			}
+
+			out(0, "Nothing to change");
+			break;
+
 		case 'nette-2.2':
 			$composer = $modifyRequirement(function ($dep, $version) {
 				return '>=2.2.0';
@@ -123,6 +147,14 @@ call_user_func(function () {
 
 		default:
 			out(4, "Unsupported requirement: " . $version);
+	}
+
+	if (!empty($composer['require']['nette/deprecated'])) {
+		$composer['require']['nette/deprecated'] = '*';
+	}
+
+	if (!empty($composer['require-dev']['nette/deprecated'])) {
+		$composer['require-dev']['nette/deprecated'] = '*';
 	}
 
 	$content = defined('JSON_PRETTY_PRINT') ? json_encode($composer, JSON_PRETTY_PRINT) : json_encode($composer);
