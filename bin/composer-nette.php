@@ -84,7 +84,7 @@ call_user_func(function () {
 		case 'nette-2.3':
 			$composer = $modifyRequirement(function ($dep, $version) {
 				if (in_array($dep, array('nette/component-model', 'nette/tokenizer'))) {
-					return '~2.3@dev';
+					return '~2.2@dev';
 				}
 
 				return '~2.3@beta';
