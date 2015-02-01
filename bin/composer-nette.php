@@ -107,10 +107,10 @@ call_user_func(function () {
 
 		case 'nette-2.2':
 			$composer = $modifyRequirement(function ($dep, $version) {
-				return '>=2.2.0';
+				return '2.2.*';
 			});
 
-			$composer['require-dev'] = array('nette/nette' => '>=2.2.0') + $composer['require-dev'];
+			$composer['require-dev'] = array('nette/nette' => '2.2.*') + $composer['require-dev'];
 
 			break;
 
