@@ -24,107 +24,13 @@ use Tester\TestCase;
 abstract class IntegrationTestCase extends TestCase
 {
 
-	/**
-	 * @var Container|\SystemContainer
-	 */
-	private $container;
-
-
-
-	/**
-	 * @return Container
-	 */
-	protected function getContainer()
-	{
-		if ($this->container === NULL) {
-			$this->container = $this->createContainer();
-		}
-
-		return $this->container;
-	}
-
-
-
-	protected function refreshContainer()
-	{
-		$container = $this->getContainer();
-
-		/** @var Session $session */
-		if (($session = $container->getByType('Nette\Http\Session')) && $session->isStarted()) {
-			$session->close();
-		}
-
-		$this->container = new $container();
-		$this->container->initialize();
-	}
-
-
-
-	protected function doCreateConfiguration()
-	{
-		$config = new Nette\Configurator();
-		$config->addParameters([
-			// vendor/kdyby/tester-extras/src
-			'rootDir' => $rootDir = dirname(dirname(dirname(dirname(__DIR__)))),
-			'appDir' => $rootDir . '/app',
-			'wwwDir' => $rootDir . '/www',
-		]);
-
-		// shared compiled container for faster tests
-		$config->setTempDirectory(dirname(TEMP_DIR));
-
-		return $config;
-	}
-
-
-
-	/**
-	 * @param array $configs
-	 * @return Container
-	 */
-	protected function createContainer(array $configs = [])
-	{
-		$config = $this->doCreateConfiguration();
-
-		foreach ($configs as $file) {
-			$config->addConfig($file);
-		}
-
-		/** @var Container $container */
-		$container = $config->createContainer();
-
-		return $container;
-	}
-
-
-
-	/**
-	 * @param string $type
-	 * @return object
-	 */
-	public function getService($type)
-	{
-		$container = $this->getContainer();
-		if ($object = $container->getByType($type, FALSE)) {
-			return $object;
-		}
-
-		return $container->createInstance($type);
-	}
+	use CompiledContainer;
 
 
 
 	protected function tearDown()
 	{
-		if ($this->container) {
-			/** @var Session $session */
-			$session = $this->container->getByType('Nette\Http\Session');
-			if ($session->isStarted()) {
-				$session->destroy();
-			}
-
-			$this->container = NULL;
-		}
+		$this->tearDownContainer();
 	}
 
 }
