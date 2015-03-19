@@ -83,20 +83,58 @@ class HttpResponseMock extends Http\Response implements Http\IResponse
 
 
 
+	/**
+	 * @param string $name
+	 * @param string $value
+	 * @param string $time
+	 * @param string $path
+	 * @param string $domain
+	 * @param bool $secure
+	 * @param bool $httpOnly
+	 * @return Http\Response
+	 */
+	public function setCookie($name, $value, $time, $path = NULL, $domain = NULL, $secure = NULL, $httpOnly = NULL)
+	{
+		return $this->setHeader('Set-Cookie', sprintf(
+			'%s; Expires=%s',
+			http_build_query([$name => $value]),
+			Nette\Utils\DateTime::from($time)->format('U'))
+		);
+	}
+
+
+
+	/**
+	 * @param string $name
+	 * @param string $value
+	 */
 	public function setHeader($name, $value)
 	{
 		$this->headers[$name] = $value;
+
+		return $this;
 	}
 
 
 
+	/**
+	 * @param string $name
+	 * @param string $value
+	 */
 	public function addHeader($name, $value)
 	{
 		$this->headers[$name] = $value;
+
+		return $this;
 	}
 
 
 
+	/**
+	 * @param string $header
+	 * @param string $default
+	 * @return string|NULL
+	 */
 	public function getHeader($header, $default = NULL)
 	{
 		return isset($this->headers[$header]) ? $this->headers[$header] : $default;
