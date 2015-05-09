@@ -87,10 +87,10 @@ call_user_func(function () {
 					return '~2.2@dev';
 				}
 
-				return '~2.3@beta';
+				return '~2.3';
 			});
 
-			$composer['require-dev'] = array('nette/nette' => '~2.3@beta') + $composer['require-dev'];
+			$composer['require-dev'] = array('nette/nette' => '~2.3') + $composer['require-dev'];
 
 			break;
 
