@@ -113,7 +113,6 @@ trait DoctrineDbSetup
 		);
 
 		$db->exec("USE `{$this->databaseName}`");
-		$db->exec("SET GLOBAL time_zone = '+01:00'");
 		$db->transactional(function (Connection $db) use ($sqls) {
 			$db->exec("SET foreign_key_checks = 0;");
 			$db->exec("SET @disable_triggers = 1;");
