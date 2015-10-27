@@ -35,7 +35,11 @@ class Bootstrap
 		define('TEMP_DIR', $rootDir . '/tmp/' . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
 		Tester\Helpers::purge(TEMP_DIR);
 		@chmod(TEMP_DIR, 0777);
-		Tracy\Debugger::$logDirectory = TEMP_DIR;
+		
+		// Tracy may not be defined
+		if(class_exists('Tracy\Debugger')) {
+			Tracy\Debugger::$logDirectory = TEMP_DIR;
+		}
 
 //		$_SERVER = array_intersect_key($_SERVER, array_flip(array(
 //			'PHP_SELF', 'SCRIPT_NAME', 'SERVER_ADDR', 'SERVER_SOFTWARE', 'HTTP_HOST', 'DOCUMENT_ROOT', 'OS', 'argc', 'argv'
