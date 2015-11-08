@@ -14,15 +14,6 @@ Kdyby/TesterExtras requires PHP 5.3.2 or higher.
 - [Nette Tester](https://github.com/nette/tester)
 
 
-Installation
-------------
-
-The best way to install Kdyby/TesterExtras is using  [Composer](http://getcomposer.org/):
-
-```sh
-$ composer require kdyby/tester-extras:@dev
-```
-
 
 -----
 
