@@ -80,14 +80,30 @@ call_user_func(function () {
 		return $composer;
 	};
 
+	$parseVersion = function ($version) {
+		preg_match('~^(?P<modifier>\\~|\\^|(\\>|\\<)?=)?(?P<number>[^\\@]+)?(?:\\@(?P<stability>.+))?~', $version, $v);
+		return ((array) $v) + array('modifier' => '', 'number' => '0', 'stability' => 'stable');
+	};
+
+	$isNewerVersion = function ($what, $against) use ($parseVersion) {
+		$w = $parseVersion($what);
+		$a = $parseVersion($against);
+		return version_compare($w['number'], $a['number'], '>');
+	};
+
+	$asStable = function ($version) use ($parseVersion) {
+		$v = $parseVersion($version);
+		return $v['modifier'] . $v['number']; // remove stability modifier
+	};
+
 	switch ($version) {
 		case 'nette-2.3':
-			$composer = $modifyRequirement(function ($dep, $version) {
-				if (in_array($dep, array('nette/component-model', 'nette/tokenizer'))) {
+			$composer = $modifyRequirement(function ($dep, $version) use ($isNewerVersion, $asStable) {
+				if (in_array($dep, array('nette/component-model', 'nette/tokenizer'), TRUE)) {
 					return '~2.2@dev';
 				}
 
-				return '~2.3';
+				return $isNewerVersion($version, '~2.3') ? $asStable($version) : '~2.3';
 			});
 
 			$composer['require-dev'] = array('nette/nette' => '~2.3') + $composer['require-dev'];
