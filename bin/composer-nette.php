@@ -81,7 +81,7 @@ call_user_func(function () {
 	};
 
 	$parseVersion = function ($version) {
-		preg_match('~^(?P<modifier>\\~|\\^|(\\>|\\<)?=)?(?P<number>[^\\@]+)?(?:\\@(?P<stability>.+))?~', $version, $v);
+		preg_match('~^(?P<modifier>\\~|\\^|(\\>|\\<)?=)?(?P<number>[^\\@]+)?(?:\\@(?P<stability>[^\\|]+))?(?P<other>.*)\\z~', $version, $v);
 		return ((array) $v) + array('modifier' => '', 'number' => '0', 'stability' => 'stable');
 	};
 
