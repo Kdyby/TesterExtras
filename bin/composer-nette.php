@@ -167,6 +167,9 @@ call_user_func(function () {
 	}
 
 	$content = defined('JSON_PRETTY_PRINT') ? json_encode($composer, JSON_PRETTY_PRINT) : json_encode($composer);
+	$content = preg_replace_callback('~^(    )+~m', function (array $m) {
+		return str_replace('    ', "\t", $m[0]);
+	}, $content);
 	file_put_contents($composerJsonFile, $content . "\n");
 
 	echo "\n", print_r(array(
