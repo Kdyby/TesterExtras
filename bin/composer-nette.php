@@ -167,7 +167,7 @@ call_user_func(function () {
 	}
 
 	$content = defined('JSON_PRETTY_PRINT') ? json_encode($composer, JSON_PRETTY_PRINT) : json_encode($composer);
-	file_put_contents($composerJsonFile, $content);
+	file_put_contents($composerJsonFile, $content . "\n");
 
 	echo "\n", print_r(array(
 		'require' => $composer['require'],
