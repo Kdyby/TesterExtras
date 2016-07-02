@@ -97,22 +97,30 @@ call_user_func(function () {
 	};
 
 	switch ($version) {
-		case 'nette-2.3':
+		case 'nette-2.4':
 			$composer = $modifyRequirement(function ($dep, $version) use ($isNewerVersion, $asStable) {
-				if (in_array($dep, array('nette/component-model', 'nette/tokenizer'), TRUE)) {
-					return '~2.2@dev';
+				if ($isNewerVersion($version, '~2.4')) {
+					return $asStable($version);
 				}
 
-				return $isNewerVersion($version, '~2.3') ? $asStable($version) : '~2.3';
+				if (in_array($dep, array('nette/component-model', 'nette/deprecated', 'nette/safe-stream'), TRUE)) {
+					return '2.3.*|2.4.*';
+				}
+
+				if (in_array($dep, array('nette/tokenizer'), TRUE)) {
+					return '2.2.*|2.3.*|2.4.*';
+				}
+
+				return '~2.4';
 			});
 
-			$composer['require-dev'] = array('nette/nette' => '~2.3') + $composer['require-dev'];
+			unset($composer['require']['nette/nette'], $composer['require-dev']['nette/nette']);
 
 			break;
 
-		case 'nette-2.3-dev':
+		case 'nette-2.4-dev':
 			$allPackages = $composer['require'] + $composer['require-dev'];
-			if ($diff = array_diff_key(array_fill_keys($nettePackages, "~2.3@dev"), $allPackages)) {
+			if ($diff = array_diff_key(array_fill_keys($nettePackages, '~2.4@dev'), $allPackages)) {
 
 				$formatted = '';
 				foreach ($diff as $dep => $version) {
@@ -122,6 +130,27 @@ call_user_func(function () {
 				out(5, "There are missing packages in the require-dev section of composer.json:\n\n" . $formatted);
 			}
 
+			out(0, 'Nothing to change');
+			break;
+
+		case 'nette-2.3':
+			$composer = $modifyRequirement(function ($dep, $version) use ($isNewerVersion, $asStable) {
+				if ($isNewerVersion($version, '~2.3')) {
+					return $asStable($version);
+				}
+
+				if (in_array($dep, array('nette/component-model', 'nette/tokenizer'), TRUE)) {
+					return '2.2.*|2.3.*';
+				}
+
+				return '2.3.*';
+			});
+
+			$composer['require-dev'] = array('nette/nette' => '2.3.*') + $composer['require-dev'];
+
+			break;
+
+		case 'nette-2.3-dev':
 			out(0, 'Nothing to change');
 			break;
 
