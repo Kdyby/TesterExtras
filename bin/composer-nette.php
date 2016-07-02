@@ -22,44 +22,44 @@ call_user_func(function () {
 
 	$version = getenv('NETTE');
 	if (!$version) {
-		out(0, "Version constant NETTE is not defined.");
+		out(0, 'Version constant NETTE is not defined.');
 	}
 
-	echo "Nette version " . $version . PHP_EOL;
+	echo 'Nette version ' . $version . PHP_EOL;
 
 	if (!file_exists($composerJsonFile = $projectRoot . '/composer.json')) {
-		out(2, "Cannot locate the composer.json");
+		out(2, 'Cannot locate the composer.json');
 	}
 
 	$content = file_get_contents($composerJsonFile);
 	$composer = json_decode($content, TRUE);
 
 	if (!array_key_exists('require', $composer)) {
-		out(3, "The composer.json has no require section");
+		out(3, 'The composer.json has no require section');
 	}
 
 	static $nettePackages = array(
-		"nette/application",
-		"nette/bootstrap",
-		"nette/caching",
-		"nette/component-model",
-		"nette/database",
-		"nette/deprecated",
-		"nette/di",
-		"nette/finder",
-		"nette/forms",
-		"nette/http",
-		"nette/mail",
-		"nette/neon",
-		"nette/php-generator",
-		"nette/reflection",
-		"nette/robot-loader",
-		"nette/safe-stream",
-		"nette/security",
-		"nette/tokenizer",
-		"nette/utils",
-		"latte/latte",
-		"tracy/tracy",
+		'nette/application',
+		'nette/bootstrap',
+		'nette/caching',
+		'nette/component-model',
+		'nette/database',
+		'nette/deprecated',
+		'nette/di',
+		'nette/finder',
+		'nette/forms',
+		'nette/http',
+		'nette/mail',
+		'nette/neon',
+		'nette/php-generator',
+		'nette/reflection',
+		'nette/robot-loader',
+		'nette/safe-stream',
+		'nette/security',
+		'nette/tokenizer',
+		'nette/utils',
+		'latte/latte',
+		'tracy/tracy',
 	);
 
 	$modifyRequirement = function ($callback) use ($composer, $nettePackages) {
@@ -122,7 +122,7 @@ call_user_func(function () {
 				out(5, "There are missing packages in the require-dev section of composer.json:\n\n" . $formatted);
 			}
 
-			out(0, "Nothing to change");
+			out(0, 'Nothing to change');
 			break;
 
 		case 'nette-2.2':
@@ -135,7 +135,7 @@ call_user_func(function () {
 			break;
 
 		case 'nette-2.2-dev':
-			out(0, "Nothing to change");
+			out(0, 'Nothing to change');
 			break;
 
 		case 'nette-2.1':
@@ -151,11 +151,11 @@ call_user_func(function () {
 			break;
 
 		case 'default':
-			out(0, "Nothing to change");
+			out(0, 'Nothing to change');
 			break;
 
 		default:
-			out(4, "Unsupported requirement: " . $version);
+			out(4, 'Unsupported requirement: ' . $version);
 	}
 
 	if (!empty($composer['require']['nette/deprecated'])) {
